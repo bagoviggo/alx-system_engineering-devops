@@ -11,14 +11,14 @@ i=$START
 
 while [ $i -le $END ]
 do
-if [ $i -eq 4 ]
-then
-    echo "bad luck"
-elif [ $i -eq 8 ]
-then
-    echo "good luck"
-else
-    echo "Best School"
-fi
-i=$((i+1))
+    if [ $i -eq 4 ]
+    then
+        echo "bad luck"
+    elif [ $i -eq 8 ]
+    then
+        echo "good luck"
+    else
+        echo "Best School"
+    fi
+    i=$((i+1))
 done
