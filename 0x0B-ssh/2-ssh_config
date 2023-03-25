@@ -1,0 +1,8 @@
+#Configure server without password
+
+Host myserver
+    Hostname 54.89.117.127
+    User ubuntu
+    IdentityFile ~/.ssh/school
+    PasswordAuthentication no
+
