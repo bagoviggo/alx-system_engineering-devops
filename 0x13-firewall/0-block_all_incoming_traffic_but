@@ -2,11 +2,18 @@
 # Installs and configures ufw to block all incoming traffic
 # except for port 22, 443, 80. all outgoing traffic is allowed
 
+# Install ufw
+sudo apt-get update
 sudo apt-get install ufw -y
-sudo ufw default deny incoming
+# Enable ufw
+sudo ufw --force enable
+# set default policies
 sudo ufw default allow outgoing
+sudo ufw default deny incoming
+# Allow specific incoming connection
 sudo ufw allow 22/tcp
 sudo ufw allow 443/tcp
 sudo ufw allow 80/tcp
-sudo ufw enable -y
+# Show ufw status
 sudo ufw status
+
