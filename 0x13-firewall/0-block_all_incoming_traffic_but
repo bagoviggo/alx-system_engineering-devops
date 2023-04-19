@@ -1,3 +1,7 @@
+#!/usr/bin/bash
+# Installs and configures ufw to block all incoming traffic
+# except for port 22, 443, 80. all outgoing traffic is allowed
+
 sudo apt-get install ufw -y
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
