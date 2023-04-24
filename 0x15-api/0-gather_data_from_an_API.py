@@ -9,6 +9,18 @@ import sys
 # Base URL for the REST API
 BASE_URL = 'https://jsonplaceholder.typicode.com'
 
+if __name__ == "__main__":
+    # Check if employee ID is provided as a command-line argument
+    if len(sys.argv) == 2:
+        employee_id = sys.argv[1]
+        # Validate command-line argument for integer employee ID
+        if employee_id.isdigit():
+            get_employee_todo_progress(int(employee_id))
+        else:
+            print("Invalid employee ID. Please enter a valid integer.")
+    else:
+        print("Usage: python3 0-gather_data_from_an_API.py <employee_id>")
+
 
 def get_employee_todo_progress(employee_id):
     """Get the employee information"""
@@ -36,16 +48,3 @@ def get_employee_todo_progress(employee_id):
     if num_completed_tasks > 0:
         for task in completed_tasks:
             print(f"\t\t{task['title']}")
-
-
-if __name__ == "__main__":
-    # Check if employee ID is provided as a command-line argument
-    if len(sys.argv) == 2:
-        employee_id = sys.argv[1]
-        # Validate command-line argument for integer employee ID
-        if employee_id.isdigit():
-            get_employee_todo_progress(int(employee_id))
-        else:
-            print("Invalid employee ID. Please enter a valid integer.")
-    else:
-        print("Usage: python3 0-gather_data_from_an_API.py <employee_id>")
