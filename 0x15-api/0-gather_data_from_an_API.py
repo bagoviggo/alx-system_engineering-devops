@@ -35,7 +35,7 @@ def get_employee_todo_progress(employee_id):
     # Display completed tasks
     if num_completed_tasks > 0:
         for task in completed_tasks:
-            print(f"\t\t{task['title']}")
+            print(f"\t {task['title']}")
 
 
 if __name__ == "__main__":
