@@ -1,7 +1,19 @@
 #!/usr/bin/python3
 """
-Script to give the progress of an employee's TODO list
+This script retrieves information from a REST API to display the progress of an employee's TODO list.
+It takes an employee ID as a command-line argument and displays the number of completed tasks
+out of the total tasks, along with the titles of the completed tasks.
+
+Usage:
+    python3 0-gather_data_from_an_API.py <employee_id>
+
+Args:
+    employee_id (int): The ID of the employee
+
+Returns:
+    None
 """
+
 import requests
 import sys
 
@@ -11,7 +23,15 @@ BASE_URL = 'https://jsonplaceholder.typicode.com'
 
 
 def get_employee_todo_progress(employee_id):
-    """Get the employee information"""
+    """
+    Get the name of an employee
+
+    Args:
+        user_id (int): The user id of the employee
+
+    Returns:
+        str: The name of the employee
+    """
     employee_info_url = f'{BASE_URL}/users/{employee_id}'
     employee_info = requests.get(employee_info_url).json()
 
