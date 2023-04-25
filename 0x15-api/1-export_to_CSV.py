@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 """
-This script retrieves information from a REST API to display the progress of an employee's TODO list.
-It takes an employee ID as a command-line argument and displays the number of completed tasks
-out of the total tasks, along with the titles of the completed tasks. It also exports the employee's
-TODO list to a CSV file with the specified format.
+This Script retrives info from REST API display
+the progress of an employee's TODO list
+It takes an employee ID as a command-line argument
+and displays the number of completed tasks
+It also exports the employee's TODO
+list to a CSV file with the specified format.
 
 Usage:
     python3 0-gather_data_from_an_API.py <employee_id>
@@ -62,14 +64,24 @@ def get_employee_todo_progress(employee_id):
     # Export TODO list to CSV file
     filename = f"{employee_id}.csv"
     with open(filename, 'w', newline='') as csvfile:
-        fieldnames = ['USER_ID', 'USERNAME', 'TASK_COMPLETED_STATUS', 'TASK_TITLE']
+        fieldnames = [
+                     'USER_ID',
+                     'USERNAME',
+                     'TASK_COMPLETED_STATUS',
+                     'TASK_TITLE'
+        ]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for task in employee_todo_list:
-            writer.writerow({'USER_ID': employee_id, 'USERNAME': employee_info['username'],
-                             'TASK_COMPLETED_STATUS': task['completed'], 'TASK_TITLE': task['title']})
+            writer.writerow({
+                             'USER_ID': employee_id,
+                             'USERNAME': employee_info['username'],
+                             'TASK_COMPLETED_STATUS': task['completed'],
+                             'TASK_TITLE': task['title']
+            })
 
-    print(f"TODO list of Employee {employee_info['name']} has been exported to {filename}")
+    print(f"TODO list of Employee {employee_info['name']}"
+          f"has been exported to {filename}")
 
 
 if __name__ == "__main__":
