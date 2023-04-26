@@ -15,86 +15,34 @@ Returns:
     None
 """
 
-import requests
-import sys
 import json
-
-# Base URL for the REST API
-BASE_URL = 'https://jsonplaceholder.typicode.com'
+import requests
 
 
-def get_employee_todo_progress(employee_id):
-    """
-    Get the name of an employee
-
-    Args:
-        user_id (int): The user id of the employee
-
-    Returns:
-        str: The name of the employee
-    """
-    employee_info_url = f'{BASE_URL}/users/{employee_id}'
-    employee_info = requests.get(employee_info_url).json()
-
-    # Get employee's TODO list
-    employee_todo_url = f'{BASE_URL}/todos?userId={employee_id}'
-    employee_todo_list = requests.get(employee_todo_url).json()
-
-    # Count the number of completed tasks
-    completed_tasks = [
-        task for task in employee_todo_list if task.get('completed', False)
-    ]
-    num_completed_tasks = len(completed_tasks)
-
-    # Calculate the total number of tasks
-    total_tasks = len(employee_todo_list)
-
-    # Display employee TODO list progress
-    print(f"Employee {employee_info['name']} is done with tasks"
-          f"({num_completed_tasks}/{total_tasks}):")
-
-    # Display completed tasks
-    if num_completed_tasks > 0:
-        for task in completed_tasks:
-            print(f"\t {task['title']}")
+REST_API = "https://jsonplaceholder.typicode.com"
 
 
-if __name__ == "__main__":
-    # Check if employee ID is provided as a command-line argument
-    if len(sys.argv) == 2:
-        employee_id = sys.argv[1]
-        # Validate command-line argument for integer employee ID
-        if employee_id.isdigit():
-            get_employee_todo_progress(int(employee_id))
-        else:
-            print("Invalid employee ID. Please enter a valid integer.")
-    else:
-        print("Usage: python3 0-gather_data_from_an_API.py <employee_id>")
+if __name__ == '__main__':
+    emp_req = requests.get('{}/users'.format(REST_API)).json()
+    task_req = requests.get('{}/todos'.format(REST_API)).json()
 
-    # Retrieve data for all employees
-    all_employee_data = {}
-    for employee_id in range(1, 11):
-        employee_todo_url = f'{BASE_URL}/todos?userId={employee_id}'
-        employee_todo_list = requests.get(employee_todo_url).json()
+    todo_all_employees = {}
 
-        # Get employee info
-        employee_info_url = f'{BASE_URL}/users/{employee_id}'
-        employee_info = requests.get(employee_info_url).json()
-        username = employee_info['username']
+    for user in emp_req:
+        emp_id = user.get('id')
+        emp_username = user.get('username')
+        emp_tasks = list(filter(lambda x: x.get('userId') == emp_id, task_req))
 
-        # Store tasks for employee
-        tasks = []
-        for task in employee_todo_list:
-            task_data = {
-                'username': username,
-                'task': task['title'],
-                'completed': task['completed']
+        todo_list = []
+        for task in emp_tasks:
+            task_dict = {
+                "username": emp_username,
+                "task": task.get('title'),
+                "completed": task.get('completed')
             }
-            tasks.append(task_data)
+            todo_list.append(task_dict)
 
-        # Store tasks for employee in all_employee_data
-        all_employee_data[str(employee_id)] = tasks
+        todo_all_employees[emp_id] = todo_list
 
-    # Export data to JSON
-    with open('todo_all_employees.json', 'w') as json_file:
-        json.dump(all_employee_data, json_file)
+    with open('todo_all_employees.json', mode='w', encoding='utf-8') as file:
+        json.dump(todo_all_employees, file)
