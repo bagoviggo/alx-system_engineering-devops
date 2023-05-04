@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 # Script that transfers file from client to a server
 
 # Set parameters
