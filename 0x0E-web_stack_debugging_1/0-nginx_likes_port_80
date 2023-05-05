@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Script to configure nginx to port 80
 
 # Backup Nginx configuration file
 sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
