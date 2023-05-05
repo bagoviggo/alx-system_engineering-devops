@@ -1,0 +1,29 @@
+i#!/usr/bin/env bash
+
+function usage {
+  echo "Usage: $0 domain [subdomain]"
+  exit 1
+}
+
+if [ $# -lt 1 ]; then
+  usage
+fi
+
+domain=$1
+subdomain=$2
+
+if [ -z "$subdomain" ]; then
+  subdomains=("www" "lb-01" "web-01" "web-02")
+else
+  subdomains=("$subdomain")
+fi
+
+for sub in "${subdomains[@]}"; do
+  output=$(dig "$sub.$domain" +short)
+  if [ -z "$output" ]; then
+    echo "No records found for $sub.$domain"
+  else
+    echo "The subdomain $sub is a $(dig "$sub.$domain" +short | awk '{print $1}') record and points to $output"
+  fi
+done
+
