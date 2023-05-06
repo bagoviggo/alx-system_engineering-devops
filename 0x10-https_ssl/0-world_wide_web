@@ -1,30 +1,30 @@
-#!/usr/bin/python3
-"""
-Fabric script based on the file 1-pack_web_static.py that distributes an
-archive to the web servers
-"""
+#!/usr/bin/env bash
+# This script audits for domain and subdomains 
+#Usage: $0 <domain> <subdomain>
 
-from fabric.api import put, run, env
-from os.path import exists
-env.hosts = ['142.44.167.228', '144.217.246.195']
+# Function to display information about a subdomain
+display_subdomain_info() {
+    local domain="$1"
+    local subdomain="$2"
+    local dig_output
+    dig_output=$(dig "$subdomain.$domain" | awk '/ANSWER SECTION/{flag=1;next}/;;/{flag=0}flag' | awk '{print $1,$2,$3,$4,$5}')
+    local record_type
+    record_type=$(echo "$dig_output" | awk '{print $4}')
+    local destination
+    destination=$(echo "$dig_output" | awk '{print $5}')
+    echo "The subdomain $subdomain is a $record_type record and points to $destination"
+}
 
 
-def do_deploy(archive_path):
-    """distributes an archive to the web servers"""
-    if exists(archive_path) is False:
-        return False
-    try:
-        file_n = archive_path.split("/")[-1]
-        no_ext = file_n.split(".")[0]
-        path = "/data/web_static/releases/"
-        put(archive_path, '/tmp/')
-        run('mkdir -p {}{}/'.format(path, no_ext))
-        run('tar -xzf /tmp/{} -C {}{}/'.format(file_n, path, no_ext))
-        run('rm /tmp/{}'.format(file_n))
-        run('mv {0}{1}/web_static/* {0}{1}/'.format(path, no_ext))
-        run('rm -rf {}{}/web_static'.format(path, no_ext))
-        run('rm -rf /data/web_static/current')
-        run('ln -s {}{}/ /data/web_static/current'.format(path, no_ext))
-        return True
-    except:
-        return False
+# Default subdomains to audit
+default_subdomains=("www" "lb-01" "web-01" "web-02")
+
+# Check if both domain and subdomain were provided as arguments
+if [ $# -eq 2 ]; then
+    display_subdomain_info "$1" "$2"
+# Otherwise, display information about default subdomains for the given domain
+elif [ $# -eq 1 ]; then
+    for subdomain in "${default_subdomains[@]}"; do
+        display_subdomain_info "$1" "$subdomain"
+    done
+fi
