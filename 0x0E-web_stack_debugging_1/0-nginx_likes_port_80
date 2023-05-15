@@ -1,17 +1,14 @@
 #!/usr/bin/env bash
-# Script to configure nginx to port 80
+# This script removes the default Nginx configuration from sites-enabled,
+# creates a symbolic link to the default configuration in sites-enabled,
+# and restarts the Nginx service.
 
-# Backup Nginx configuration file
-sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+# Remove default configuration from sites-enabled
+sudo rm /etc/nginx/sites-enabled/default
 
-# Stop Nginx service
-sudo service nginx stop
-
-# Update Nginx configuration file
-sudo sed -i 's/listen 8080;/listen 0.0.0.0:80;/g' /etc/nginx/sites-available/default
+# Create symbolic link to default configuration in sites-enabled
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 # Restart Nginx service
-sudo service nginx start
-
-echo "Nginx configuration has been updated to use port 80 for all IPv4 IPs."
+sudo service nginx restart
 
