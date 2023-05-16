@@ -1,9 +1,11 @@
 #!/bin/env bash
-# Script that displays the username
+# Script that shows who is the user
+
 if [ $# -eq 0 ]; then
+    echo "Error: User argument missing."
     echo "Usage: $0 <username>"
     exit 1
 fi
 
 username="$1"
-su "$username" -s /bin/bash -c 'whoami'
+output=$(su "$username" -s /bin/bash -c 'whoami')
