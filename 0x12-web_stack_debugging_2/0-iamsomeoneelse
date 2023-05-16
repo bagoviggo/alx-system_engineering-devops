@@ -6,6 +6,4 @@ if [ $# -eq 0 ]; then
 fi
 
 username="$1"
-output=$(sudo -u "$username" whoami)
-echo "$output"
-
+su "$username" -s /bin/bash -c 'whoami'
