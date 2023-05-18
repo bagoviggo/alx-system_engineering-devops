@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 # Script that shows who is the user
 
 if [ $# -eq 0 ]; then
