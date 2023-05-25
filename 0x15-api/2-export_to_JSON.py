@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 
 """
-This script retrieves information from a REST API to display the progress of an employee's TODO list.
-It takes an employee ID as a command-line argument and displays the number of completed tasks
+This script retrieves information from a REST API
+to display the progress of an employee's TODO list.
+It takes an employee ID as a command-line argument
+and displays the number of completed tasks
 out of the total tasks, along with the titles of the completed tasks.
 
 Usage:
