@@ -7,7 +7,8 @@ import requests
 
 def top_ten(subreddit):
     """
-    Queries the Reddit API and prints the titles of the first 10 hot posts for a given subreddit.
+    Queries the Reddit API and prints the titles of the first
+    top 10 posts for a given subreddit.
 
     Args:
         subreddit (str): The name of the subreddit.
@@ -20,7 +21,7 @@ def top_ten(subreddit):
 
     """
     url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
-    headers = {"User-Agent": "Alx-reddit/1.0"}  # Set a custom User-Agent header
+    headers = {"User-Agent": "Alx-reddit/1.0"}
 
     response = requests.get(url, headers=headers)
 
@@ -36,7 +37,7 @@ def top_ten(subreddit):
         except KeyError:
             print("Invalid subreddit.")
     else:
-        print("Invalid subreddit.")
+        print("None")
 
 
 if __name__ == "__main__":
