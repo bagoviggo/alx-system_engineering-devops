@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-''' This module contains function that queries Reddit API
-    and returns the number of subscriber
-'''
+"""
+ This module contains function that queries Reddit API
+ and returns the number of subscriber
+"""
 import requests
 
 
@@ -27,6 +28,7 @@ def number_of_subscribers(subreddit):
             subscribers = data["data"]["subscribers"]
             return subscribers
         except KeyError:
+            print("Key Doesnot exist in JSON")
             return 0
     else:
         return 0
