@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ This module contains function that Queries the Reddit API
-    that returns top 10 posts from reddit
+    that prints top 10 posts from reddit
 """
 import requests
 
@@ -37,3 +37,7 @@ def top_ten(subreddit):
             print("Invalid subreddit.")
     else:
         print("Invalid subreddit.")
+
+
+if __name__ == "__main__":
+    (top_ten(argv[1]))
