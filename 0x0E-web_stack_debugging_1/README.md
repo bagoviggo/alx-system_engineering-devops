@@ -1,4 +1,4 @@
-# 0x0D-webstack_debugging_1
+# 0x0E-web_stack_debugging_1
 
 This project is a part of the ALX Software Engineering program. In this project, we focus on debugging web stack issues and fixing them to ensure the proper functioning of the web application.
 
